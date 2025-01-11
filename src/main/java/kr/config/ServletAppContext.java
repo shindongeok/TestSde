@@ -1,13 +1,12 @@
 package kr.config;
 
+import kr.mapper.UserMapper;
 import org.apache.commons.dbcp2.BasicDataSource;
 import org.apache.ibatis.session.SqlSessionFactory;
 import org.mybatis.spring.SqlSessionFactoryBean;
+import org.mybatis.spring.mapper.MapperFactoryBean;
 import org.springframework.beans.factory.annotation.Value;
-import org.springframework.context.annotation.Bean;
-import org.springframework.context.annotation.ComponentScan;
-import org.springframework.context.annotation.Configuration;
-import org.springframework.context.annotation.PropertySource;
+import org.springframework.context.annotation.*;
 import org.springframework.web.servlet.config.annotation.EnableWebMvc;
 import org.springframework.web.servlet.config.annotation.ResourceHandlerRegistry;
 import org.springframework.web.servlet.config.annotation.ViewResolverRegistry;
@@ -15,7 +14,7 @@ import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 
 @Configuration
 @EnableWebMvc
-@ComponentScan("kr.controller")
+@ComponentScan({"kr.controller", "kr.service", "kr.dao"})
 @PropertySource("/WEB-INF/properties/db.properties")
 public class ServletAppContext implements WebMvcConfigurer{
 
@@ -63,5 +62,17 @@ public class ServletAppContext implements WebMvcConfigurer{
         return factory;
     }
 
+
+    //메퍼 등록
+
+    //UserMapper 등록
+    @Bean
+    public MapperFactoryBean<UserMapper> top_mapper(SqlSessionFactory factory) throws Exception{
+        MapperFactoryBean<UserMapper> fac =
+                new MapperFactoryBean<UserMapper>(UserMapper.class);
+
+        fac.setSqlSessionFactory(factory);
+        return fac;
+    }
 
 }
