@@ -1,7 +1,7 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java"
          pageEncoding="UTF-8"%>
-<c:set var="root" value="${pageContext.request.contextPath}/"/>
+<c:url value='/' var="root"/>   <!-- 컨텍스트 루트 생성해 root라는 변수에 저정하겠다 -->
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">

@@ -1,5 +1,6 @@
 package kr.service;
 
+import kr.beans.User;
 import kr.dao.UserDao;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -13,8 +14,12 @@ public class UserService {
     private UserDao userDao;
 
     public boolean getLogin(String user_id, String user_pw){
-        String userPassword = userDao.getLogin(user_id);
-        if(userPassword != null && userPassword.equals(user_pw)){
+        User user = userDao.getLogin(user_id);
+        if(user == null){
+            return false;
+        }
+
+        if(user.getUser_pw() != null && user.getUser_pw().equals(user_pw)){
             return true;
         }
         return false;
